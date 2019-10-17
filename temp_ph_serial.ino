@@ -86,14 +86,12 @@ void loop() {
 
 float get_ph_val() {
   static unsigned long timepoint = millis();
-  if(millis()-timepoint>1000U){                  //time interval: 1s
         timepoint = millis();
         temperature = readTemperature();         // read your temperature sensor to execute temperature compensation
         voltage = analogRead(PH_PIN)/1024.0*5000;  // read the voltage
         phValue = ph.readPH(voltage,temperature);  // convert voltage to pH with temperature compensation
         phValue += 0.25;
-    }
-    ph.calibration(voltage,temperature);           // calibration process by Serail CMD
+    return phValue;
  }
 
 float readTemperature() {
